@@ -18,10 +18,14 @@ const routes: Routes = [
     component: ContactComponent
   },
   {
+    path: 'posts',
+    loadChildren: './pages/posts/posts.module#PostsModule'
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }
-]
+];
 
 
 
