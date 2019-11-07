@@ -9,6 +9,7 @@ import { ActionSheetController } from '@ionic/angular';
   styleUrls: ['./action-sheet.page.scss'],
 })
 export class ActionSheetPage implements OnInit {
+  
 
   constructor( public actionSheetCtrl: ActionSheetController) { }
 
@@ -57,6 +58,8 @@ export class ActionSheetPage implements OnInit {
     });
     await actionSheet.present();
   }
+
+ 
 
 
 
