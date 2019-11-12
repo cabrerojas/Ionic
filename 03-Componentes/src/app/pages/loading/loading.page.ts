@@ -28,8 +28,6 @@ export class LoadingPage implements OnInit {
       message: mesanje
     });
     return this.loading.present();
-
-    console.log('Loading dismissed!');
   }
 
 }
