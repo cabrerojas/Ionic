@@ -28,7 +28,8 @@ export class SegmentPage implements OnInit {
     const valorSegmento = event.detail.value;
 
     if (valorSegmento === 'todos' ) {
-      
+      this.publisher = '';
+      return;
     }
 
     this.publisher = valorSegmento;
