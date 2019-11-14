@@ -8,7 +8,7 @@ import { NavController } from '@ionic/angular';
 })
 export class SlidesPage implements OnInit {
 
-  ocultar='';
+  ocultar = '';
 
 
   slides: { img: string, titulo: string, desc: string }[] = [
