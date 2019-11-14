@@ -103,6 +103,11 @@
       "icon": "albums",
       "name": "Slides",
       "redirecTo": "/slides"
+    },
+    {
+      "icon": "cog",
+      "name": "Tabs",
+      "redirecTo": "/tabs/account"
     }
     
 ]
