@@ -17,21 +17,27 @@ const headers = new HttpHeaders({
 })
 export class NoticiasService {
 
+  headlinePage = 0;
+
   constructor(private http: HttpClient) { }
 
-  private ejecutarQuery( query: string) {
-    
+  private ejecutarQuery<T>( query: string) {
+    query = apiURL + query;
+    return this.http.get<T>( query, {headers} );
   }
 
   getTopHeadlines() {
-    this.ejecutarQuery(`/top-headlines?country=ar`);
+
+    this.headlinePage ++;
+
+    return this.ejecutarQuery<RespuestaTopHeadlines>(`/top-headlines?country=ar&page=${this.headlinePage}`);
 
   // return this.http.get<RespuestaTopHeadlines>(`https://newsapi.org/v2/top-headlines?country=ar&apiKey=5020ae0a468247f28a55ea4ef80fbc7b`);
 
   }
 
   getTopHeadLinesCategoria( categoria: string ) {
-      return this.http.get<RespuestaTopHeadlines>(`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5020ae0a468247f28a55ea4ef80fbc7b`);
+    return this.ejecutarQuery<RespuestaTopHeadlines>(`/top-headlines?country=ar&category=${categoria}`);
   }
 
 }
