@@ -22,8 +22,6 @@ export class Tab1Page implements OnInit {
   }
 
   loadData(event) {
-    // console.log(event);
-
     this.cargarNoticias(event);
   }
 

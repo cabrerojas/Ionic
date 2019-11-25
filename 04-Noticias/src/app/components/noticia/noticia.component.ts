@@ -5,6 +5,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 import { ActionSheetController } from '@ionic/angular';
+
 import { DataLocalService } from '../../services/data-local.service';
 
 
@@ -36,6 +37,8 @@ export class NoticiaComponent implements OnInit {
 
   }
 
+
+
   async lanzarMenu() {
 
     let guardarBorrarBtn;
@@ -46,7 +49,6 @@ export class NoticiaComponent implements OnInit {
         icon: 'trash',
         cssClass: 'action-dark',
         handler: () => {
-          console.log('Borra de favorito');
           this.dataLocalService.borrarNoticia(this.noticia);
         }
       };
@@ -57,7 +59,6 @@ export class NoticiaComponent implements OnInit {
         icon: 'star',
         cssClass: 'action-dark',
         handler: () => {
-
           this.dataLocalService.guardarNoticia(this.noticia);
         }
       };
