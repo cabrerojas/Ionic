@@ -11,15 +11,34 @@ export class Tab1Page implements OnInit {
 
   peliculasRecientes: Pelicula[] = [];
 
+  polulares: Pelicula[] = [];
+
+
+
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit() {
     this.moviesService.getFeature().subscribe(resp => {
-
-      console.log('Resp', resp);
       this.peliculasRecientes = resp.results;
 
     });
+    this.getPolulares();
+
+  }
+
+  getPolulares() {
+    this.moviesService.getPolulares()
+    .subscribe( resp => {
+
+      const arrTemp = [...this.polulares, ...resp.results];
+
+      this.polulares = arrTemp;
+
+    });
+  }
+
+  cargarMas() {
+    this.getPolulares();
   }
 
 }
