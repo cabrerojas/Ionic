@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Pelicula } from '../../intefaces/interfaces';
+import { ModalController } from '@ionic/angular';
+import { DetalleComponent } from '../detalle/detalle.component';
 
 @Component({
   selector: 'app-slideshow-pares',
@@ -13,14 +15,26 @@ export class SlideshowParesComponent implements OnInit {
   @Output() cargarMas = new EventEmitter();
 
   slideOpts = {
-    slidesPerView: 2.3,
+    slidesPerView: 3.3,
     freeMde: true,
     spaceBetween: -20
   };
 
-  constructor() { }
+  constructor(private modalCtlr: ModalController) { }
 
   ngOnInit() {}
+
+  async verDetalle( id: string) {
+    const modal = await this.modalCtlr.create({
+      component: DetalleComponent,
+      componentProps: {
+        id
+      }
+    });
+
+    modal.present();
+
+  }
 
   onClick() {
     this.cargarMas.emit();
