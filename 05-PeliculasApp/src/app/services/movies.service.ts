@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RespuestaMDB, PeliculaDetalle, RespuestaCredits } from '../intefaces/interfaces';
+import { RespuestaMDB, PeliculaDetalle, RespuestaCredits, Genre } from '../intefaces/interfaces';
 import { environment } from 'src/environments/environment';
 
 
@@ -14,13 +14,15 @@ export class MoviesService {
 
   private popularesPage = 0;
 
+  generos: Genre[] = [];
+
   constructor(private http: HttpClient) { }
 
   private ejecutarQuery<T>(query: string) {
     query = URL + query;
     query += `&api_key=${ apiKey }&language=es&include_image_language=es`;
 
-    console.log(query);
+    // console.log(query);
 
     return this.http.get<T>( query );
   }
@@ -67,4 +69,18 @@ export class MoviesService {
     return this.ejecutarQuery<RespuestaCredits>(`/search/movie?query=${valor}`);
   }
 
+  cargarGeneros(): Promise<Genre[]> {
+
+    return new Promise(resolve => {
+
+      this.ejecutarQuery<RespuestaCredits>(`/genre/movie/list?a=1`)
+                  // tslint:disable-next-line: no-string-literal
+                  .subscribe(resp => { this.generos = resp[ 'genres' ];
+
+                                       resolve( this.generos );
+                });
+      });
+    }
+
 }
+
