@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PeliculaDetalle, Genre } from '../intefaces/interfaces';
 import { DataLocalService } from '../services/data-local.service';
 import { MoviesService } from '../services/movies.service';
@@ -8,7 +8,7 @@ import { MoviesService } from '../services/movies.service';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page implements OnInit {
+export class Tab3Page  {
 
   peliculas: PeliculaDetalle[] = [];
   generos: Genre[] = [];
@@ -18,14 +18,10 @@ export class Tab3Page implements OnInit {
   constructor(private DataLocal: DataLocalService,
               private moviesService: MoviesService) {}
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.peliculas = await this.DataLocal.cargarFavoritos();
     this.generos = await this.moviesService.cargarGeneros();
-
-    console.log(this.generos);
-
-    this.pelisPorGenero(this.generos,this.peliculas);
-
+    this.pelisPorGenero(this.generos, this.peliculas);
   }
 
   pelisPorGenero(generos: Genre[], peliculas: PeliculaDetalle[]) {
@@ -37,16 +33,15 @@ export class Tab3Page implements OnInit {
 
       this.favoritoPorGenero.push({
         genero: genero.name,
-        pelis: this.pelisPorGenero.filter( peli=> {
+        pelis: peliculas.filter( peli => {
           return peli.genres.find(genre => genre.id === genero.id);
-        });
+        })
       });
 
     });
 
 
     console.log(this.favoritoPorGenero);
- 
 
   }
 
