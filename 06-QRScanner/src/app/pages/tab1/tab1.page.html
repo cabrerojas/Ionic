@@ -2,6 +2,14 @@
 
 <ion-content>
    
-  
+  <ion-slides [options]="swiperOpts" >
+      <ion-slide>
+
+        <ion-button expand="full" (click)="scan()" 
+            shape="round" size="large" fill="outline">
+            ScanCode
+        </ion-button>
+      </ion-slide>
+  </ion-slides>
 
 </ion-content>
