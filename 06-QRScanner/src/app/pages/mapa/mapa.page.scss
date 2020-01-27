@@ -1,0 +1,13 @@
+
+#map{
+    width: 100% !important ;
+    height: 100% !important ;
+    background-color: red($color: #e9c7c7);
+}
+
+.boton-regresar{
+    position: fixed;
+    top: 40px;
+    right: 12px;
+    --icon-font-size: 30px !important;
+}
