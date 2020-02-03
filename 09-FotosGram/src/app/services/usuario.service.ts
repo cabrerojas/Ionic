@@ -13,7 +13,7 @@ const URL = environment.url;
 export class UsuarioService {
 
   token: string = null;
-  usuario: Usuario = {};
+  private usuario: Usuario = {};
 
   constructor(private storage: Storage,
               private http: HttpClient,
@@ -25,7 +25,6 @@ export class UsuarioService {
     return new Promise(resolve => {
 
       this.http.post(`${URL}/user/login`, data).subscribe(resp => {
-          console.log(resp);
 
           if (resp['ok']) {
 
@@ -42,12 +41,20 @@ export class UsuarioService {
 
   }
 
+  logout() {
+    this.token = null;
+    this.usuario = null;
+    this.storage.clear();
+    this.navCtrl.navigateRoot('/login', { animated: true });
+
+  }
+
+
   registro(usuario: Usuario) {
 
     return new Promise(resolve => {
 
       this.http.post(`${URL}/user/create`, usuario).subscribe(resp => {
-          console.log(resp);
 
           if (resp['ok']) {
 
@@ -61,6 +68,14 @@ export class UsuarioService {
           }
       });
     });
+
+  }
+
+  getUsuario() {
+    if (!this.usuario._id) {
+      this.validaToken();
+    }
+    return { ...this.usuario};
 
   }
 
@@ -89,15 +104,38 @@ export class UsuarioService {
     return new Promise<boolean>( resolve => {
 
       const headers = new HttpHeaders({
-        'x.token': this.token
+        'x-token': this.token
       });
 
       this.http.get(`${URL}/user`, {headers}).subscribe(resp => {
+
         if (resp['ok']) {
           this.usuario = resp['usuario'];
           resolve(true);
         } else {
           this.navCtrl.navigateRoot('/login');
+          resolve(false);
+        }
+      });
+    });
+
+  }
+
+
+  actualizarUsuario(usuario: Usuario) {
+
+    return new Promise<boolean>( resolve => {
+
+
+      const headers = new HttpHeaders({
+        'x-token': this.token
+      });
+      this.http.post(`${URL}/user/update`, usuario, {headers}).subscribe(resp => {
+
+        if (resp['ok']) {
+          this.guardarToken(resp['token']);
+          resolve(true);
+        } else {
           resolve(false);
         }
       });
