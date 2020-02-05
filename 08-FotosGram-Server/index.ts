@@ -34,16 +34,15 @@ server.app.use( '/user', userRoutes )
 server.app.use( '/posts', postRoutes )
 
 //Conectar DB
-mongoose.connect('mongodb://localhost:27017/fotosgram', 
-                { useNewUrlParser: true, useCreateIndex: true,useUnifiedTopology: true, useFindAndModify: false }, (err) => {
- if (err) throw err;
- console.log('Base de datos ONLINE');
+ mongoose.connect('mongodb://localhost:27017/fotosgram', 
+                 { useNewUrlParser: true, useCreateIndex: true,useUnifiedTopology: true, useFindAndModify: false }, (err) => {
+  if (err) throw err;
+  console.log('Base de datos ONLINE');
  
-});
-
+ });
 
 //Levantar Express
 
-server.start( ()=> {
-    console.log(`Servidor corriendo en puerto: ${server.port}`);
-});
+ server.start( ()=> {
+     console.log(`Servidor corriendo en puerto: ${server.port}`);
+ });

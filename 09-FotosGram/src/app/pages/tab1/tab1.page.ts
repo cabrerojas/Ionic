@@ -30,7 +30,7 @@ export class Tab1Page implements OnInit {
 
 
     this.postsService.getPosts( pull ).subscribe(resp => {
-      console.log(resp);
+      // console.log(resp);
 
       this.posts.push(...resp.posts);
 
